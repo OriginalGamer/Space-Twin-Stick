@@ -43,8 +43,8 @@ public class PlayerMovementController : MonoBehaviour {
 
 	// Gets the input for both joystick axis
 	void GetAxis(){
-		leftAxis = new Vector3 (Input.GetAxis ("Left_Horizontal"), 0, -Input.GetAxis ("Left_Vertical"));
-		rightAxis = new Vector3 (Input.GetAxis ("Right_Horizontal"), 0, -Input.GetAxis ("Right_Vertical"));
+		leftAxis = new Vector3 (Input.GetAxis ("Left_Horizontal"), 0, Input.GetAxis ("Left_Vertical"));
+		rightAxis = new Vector3 (Input.GetAxis ("Right_Horizontal"), 0, Input.GetAxis ("Right_Vertical"));
 	}
 
 	void MovementController(){
