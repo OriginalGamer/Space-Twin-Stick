@@ -4,19 +4,20 @@ using System.Collections;
 public class PlayerGunController : MonoBehaviour {
 
 	public Transform shootTip;
-	public GameObject bullet;
+	public GameObject basicBullet;
 
-	// Use this for initialization
+	enum EnumState{
+		normal,
+		somethingElse,
+	} EnumState gunMode;
+	
 	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+		gunMode = EnumState.normal;
 	}
 
 	public void ShotFired(){
-		Instantiate (bullet, shootTip.transform.position, transform.rotation);
+		if (gunMode == EnumState.normal) {
+			Instantiate (basicBullet, shootTip.transform.position, transform.rotation);
+		}
 	}
 }

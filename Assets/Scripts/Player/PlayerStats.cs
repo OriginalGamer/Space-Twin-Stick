@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PlayerStats : MonoBehaviour {
 
+	public int playerHeath;
 	public int playerSpeed;
 	public int playerTurnSpeed;
 	public float rollDistance;

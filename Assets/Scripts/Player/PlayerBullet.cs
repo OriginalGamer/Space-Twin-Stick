@@ -3,25 +3,26 @@ using System.Collections;
 
 public class PlayerBullet : MonoBehaviour {
 
+	public GameObject bulletFX;
 	public int shootSpeed;
 	Rigidbody myRigidBody;
-	Transform myTransform;
+	Transform startPos;
 
 	// Use this for initialization
 	void Start () {
 		myRigidBody = GetComponent<Rigidbody> ();
-		myTransform = GetComponent<Transform> ();
+		startPos = myRigidBody.transform;
 		Destroy (gameObject, 5);
+		Instantiate (bulletFX, myRigidBody.position, Quaternion.identity);
 	}
 
-	void Update () {
-		//myRigidBody.transform.Translate(myRigidBody.transform.forward * 1 * Time.deltaTime);
-		myTransform.Translate (Vector3.forward * 30 * Time.deltaTime);
+	void FixedUpdate () {
+		myRigidBody.transform.Translate (Vector3.forward * 30 * Time.deltaTime);
 	}
 
 	void OnTriggerEnter(Collider col){
 		if (col.tag == "Enemy") {
-			Destroy (col.gameObject);
+			col.SendMessage ("GetHit", 50);
 			Destroy (gameObject);
 		}
 	}

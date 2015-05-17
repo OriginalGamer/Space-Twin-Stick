@@ -9,6 +9,7 @@ public class PlayerMovementController : MonoBehaviour {
 	Rigidbody myRigidBody; //Player Rigidbody
 	Transform myTransform; //Player Transform
 	Animator anim;         //Player Animator
+	public AudioSource walkingFX;
 
 	Vector3 leftAxis, rightAxis; //Left/Right Joystick Axis
 	[HideInInspector] public bool canRoll = true; //Controlls eather can Roll, Shoot, Run
@@ -25,6 +26,7 @@ public class PlayerMovementController : MonoBehaviour {
 		myTransform = GetComponent<Transform> ();
 		anim = GetComponentInChildren<Animator> ();
 		shootEnum = EnumState.none;
+		walkingFX = GetComponentInChildren<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -54,6 +56,9 @@ public class PlayerMovementController : MonoBehaviour {
 		if (leftAxis.x != 0 || leftAxis.z != 0) {
 			myRigidBody.AddForce (leftAxis.normalized * 50, ForceMode.Force);
 			myRigidBody.velocity = Vector3.ClampMagnitude (myRigidBody.velocity, Stats.playerSpeed);
+		}
+		if (myRigidBody.velocity.magnitude > 1f && !walkingFX.isPlaying){
+			walkingFX.Play ();
 		}
 	}
 

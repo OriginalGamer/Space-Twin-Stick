@@ -3,15 +3,15 @@ using System.Collections;
 
 public class EnemyAnimationController : MonoBehaviour {
 
-	Animator anim;
-	Rigidbody myRigidBody;
-	NavMeshAgent navAgent;
+	//Animator anim;
+	//Rigidbody myRigidBody;
+	//NavMeshAgent navAgent;
 
 	// Use this for initialization
 	void Start () {
-		anim = GetComponent<Animator> ();
-		myRigidBody = GetComponent<Rigidbody> ();
-		navAgent = GetComponent<NavMeshAgent> ();
+		//anim = GetComponent<Animator> ();
+		//myRigidBody = GetComponent<Rigidbody> ();
+		//navAgent = GetComponent<NavMeshAgent> ();
 	}
 
 	void FixedUpdate () {
