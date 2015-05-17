@@ -1972,10 +1972,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBody: {fileID: 13756048}
   playerGun: {fileID: 2394150}
-  armyHelm: {fileID: 0}
-  tacHelm: {fileID: 0}
-  vendettaHel: {fileID: 0}
-  romanHelm: {fileID: 0}
+  armyHelm: {fileID: 119696}
+  tacHelm: {fileID: 177766}
+  vendettaHel: {fileID: 127820}
+  romanHelm: {fileID: 184550}
 --- !u!114 &11441460
 MonoBehaviour:
   m_ObjectHideFlags: 1

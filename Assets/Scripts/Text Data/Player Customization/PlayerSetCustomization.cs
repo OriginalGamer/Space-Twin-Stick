@@ -95,30 +95,35 @@ public class PlayerSetCustomization : MonoBehaviour {
 
 	void HelmetChange(){
 		if (helmetChoice.value == 1) {
+			helmetName.text = "Normal Helmet";
 			armyHelm.SetActive (false);
 			tacHelm.SetActive (false);
 			vendettaHel.SetActive (false);
 			romanHelm.SetActive (false);
 		}
 		if (helmetChoice.value == 2) {
+			helmetName.text = "Army Helmet";
 			armyHelm.SetActive (true);
 			tacHelm.SetActive (false);
 			vendettaHel.SetActive (false);
 			romanHelm.SetActive (false);
 		}
 		if (helmetChoice.value == 3) {
+			helmetName.text = "Tactical Helmet";
 			armyHelm.SetActive (false);
 			tacHelm.SetActive (true);
 			vendettaHel.SetActive (false);
 			romanHelm.SetActive (false);
 		}
 		if (helmetChoice.value == 4) {
+			helmetName.text = "Vendetta Mask";
 			armyHelm.SetActive (false);
 			tacHelm.SetActive (false);
 			vendettaHel.SetActive (true);
 			romanHelm.SetActive (false);
 		}
 		if (helmetChoice.value == 5) {
+			helmetName.text = "Roman Helmet";
 			armyHelm.SetActive (false);
 			tacHelm.SetActive (false);
 			vendettaHel.SetActive (false);
