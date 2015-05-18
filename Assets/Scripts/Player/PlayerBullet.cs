@@ -5,13 +5,12 @@ public class PlayerBullet : MonoBehaviour {
 
 	public GameObject bulletFX;
 	public int shootSpeed;
+	public int bulletDamage = 50;
 	Rigidbody myRigidBody;
-	Transform startPos;
 
 	// Use this for initialization
 	void Start () {
 		myRigidBody = GetComponent<Rigidbody> ();
-		startPos = myRigidBody.transform;
 		Destroy (gameObject, 5);
 		Instantiate (bulletFX, myRigidBody.position, Quaternion.identity);
 	}
@@ -22,7 +21,7 @@ public class PlayerBullet : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col){
 		if (col.tag == "Enemy") {
-			col.SendMessage ("GetHit", 50);
+			col.SendMessage ("GetHit", bulletDamage);
 			Destroy (gameObject);
 		}
 	}

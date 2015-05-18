@@ -3,6 +3,9 @@ using System.Collections;
 
 public class PlayerCompanionAI : MonoBehaviour {
 
+	public int moveSpeed;
+	public GameObject swordFX;
+
 	NavMeshAgent navAgent;
 	Transform playerTarget;
 	Transform myTransform;
@@ -27,12 +30,14 @@ public class PlayerCompanionAI : MonoBehaviour {
 		myRigidBody = GetComponent<Rigidbody>();
 		anim = GetComponent<Animator> ();
 		playerTarget = GameObject.Find ("TroopPlayer").transform;
+		navAgent.speed = moveSpeed;
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
 		SetTargetEnum ();
 		AnimationController ();
+		CheckAlive ();
 	}
 
 	void AnimationController(){
@@ -51,24 +56,28 @@ public class PlayerCompanionAI : MonoBehaviour {
 
 	void SetTargetEnum(){
 		float distFromPlayer = Vector3.Distance (myTransform.position, playerTarget.position);
-		if (distFromPlayer > 5f) {
+		if (distFromPlayer > 10f) {
 			targetEnum = EnumState.findPlayer;
 			navAgent.SetDestination (playerTarget.position);
-			navAgent.Resume();
+			navAgent.speed = moveSpeed;
+			activeTarget = null;
 		}
-		if (distFromPlayer < 5f) {
+		if (distFromPlayer < 10f) {
 			targetEnum = EnumState.findTarget;
 			if (activeTarget == null){
-				navAgent.Stop();
-				FindTarget();
-				anim.SetBool ("isMoving", false);
+				if (distFromPlayer < 5f){
+					navAgent.SetDestination (myTransform.position);
+					anim.SetBool ("isMoving", false);
+				}
 			} else {
-				navAgent.Resume();
+				navAgent.speed = moveSpeed * 2;
+				myRigidBody.transform.LookAt (activeTarget.transform);
 				navAgent.SetDestination (activeTarget.transform.position);
 				float distFromTarget = Vector3.Distance (myTransform.position, activeTarget.transform.position);
-				if (distFromTarget < 1){
+				if (distFromTarget < 1.5f){
 					anim.SetTrigger ("hit");
-					Destroy (activeTarget, 0.5f);
+					Instantiate (swordFX, myTransform.position, Quaternion.identity);
+					activeTarget.SendMessage ("GetHit", 50);
 				} else {
 					anim.SetBool ("isMoving", true);
 				}
@@ -76,12 +85,22 @@ public class PlayerCompanionAI : MonoBehaviour {
 		}
 	}
 
-	void FindTarget(){
-		RaycastHit hit;
-		if (Physics.SphereCast (myTransform.position, 0.5f, transform.forward, out hit)){
-			if (hit.collider.tag == "Enemy"){
-				activeTarget = hit.collider.gameObject;
+	void CheckAlive(){
+		if (activeTarget != null){
+			EnemyNavController hit = activeTarget.GetComponent<EnemyNavController>();
+			if (!hit.isAlive){
+				activeTarget = null;
 			}
-		}  
+		}
+	}
+
+	void OnTriggerStay(Collider col){
+		if (col.tag == "Enemy"){
+			if (activeTarget == null){
+				EnemyNavController hit = col.GetComponent<EnemyNavController>();
+				if (hit.isAlive)
+					activeTarget = col.gameObject;
+			}
+		}
 	}
 }

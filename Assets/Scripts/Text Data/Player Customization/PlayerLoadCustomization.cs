@@ -17,7 +17,8 @@ public class PlayerLoadCustomization : MonoBehaviour {
 	void Start () {
 		BodyColourCheck ();
 		GunColourCheck ();
-		HelmetCheck ();
+		if (armyHelm != null)
+			HelmetCheck ();
 		Destroy (this);
 	}
 

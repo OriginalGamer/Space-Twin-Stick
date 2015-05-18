@@ -3,28 +3,31 @@ using System.Collections;
 
 public class PlayerMovementController : MonoBehaviour {
 
-	[HideInInspector] public PlayerStats Stats;
-	[HideInInspector] public PlayerAnimationController AnimController;
-
 	Rigidbody myRigidBody; //Player Rigidbody
 	Transform myTransform; //Player Transform
-	Animator anim;         //Player Animator
-	public AudioSource walkingFX;
+	PlayerStats Stats;	   //Player Stats
 
-	Vector3 leftAxis, rightAxis; //Left/Right Joystick Axis
-	[HideInInspector] public bool canRoll = true; //Controlls eather can Roll, Shoot, Run
-	[HideInInspector] Vector3 rollPoint; //Roll Direction
+	Vector3 leftAxis, rightAxis; 					//Left/Right Joystick Axis
+	[HideInInspector] public bool canRoll = true;   //Controlls eather can Roll, Shoot, Run
+	[HideInInspector] Vector3 rollPoint; 			//Roll Direction
 
 	// Stances for which way a gun is being shot
-	public enum EnumState
-	{ none, standShoot, standRapid, runShoot, runRapid }
-	[HideInInspector] public EnumState shootEnum;
+	public enum EnumState{ 
+		none, 			//No Button Pressed
+		standShoot, 	//L Trigger, No Movement
+		standRapid, 	//R Tigger, No Movement
+		runShoot, 		//L Trigger, Movement
+		runRapid		//R Trigger, Movement
+	} [HideInInspector] public EnumState shootEnum;
+
+	public AudioSource walkingFX; //Audio Played When Walking
 
 	// Use this for initialization
 	void Start () {
+		Stats = GetComponent<PlayerStats> ();
 		myRigidBody = GetComponent<Rigidbody> ();
 		myTransform = GetComponent<Transform> ();
-		anim = GetComponentInChildren<Animator> ();
+
 		shootEnum = EnumState.none;
 		walkingFX = GetComponentInChildren<AudioSource> ();
 	}
@@ -33,13 +36,11 @@ public class PlayerMovementController : MonoBehaviour {
 	void Update () {
 		GetAxis ();
 		DashRollController ();
-		if (canRoll)
-			ShootController ();
+		if (canRoll) ShootController ();
 	}
 
 	void FixedUpdate(){
-		if (canRoll)
-			MovementController ();
+		if (canRoll) MovementController ();
 		RotationController ();
 	}
 
@@ -57,9 +58,12 @@ public class PlayerMovementController : MonoBehaviour {
 			myRigidBody.AddForce (leftAxis.normalized * 50, ForceMode.Force);
 			myRigidBody.velocity = Vector3.ClampMagnitude (myRigidBody.velocity, Stats.playerSpeed);
 		}
+		/*
+		// Checks if there is movement and plays audio footsteps.
 		if (myRigidBody.velocity.magnitude > 1f && !walkingFX.isPlaying){
 			walkingFX.Play ();
 		}
+		*/
 	}
 
 	void RotationController(){
@@ -75,7 +79,7 @@ public class PlayerMovementController : MonoBehaviour {
 			Vector3 velDir = new Vector3 (myRigidBody.velocity.x, 0, myRigidBody.velocity.z);
 			if (velDir != Vector3.zero){
 				Quaternion dir = Quaternion.LookRotation (velDir.normalized);
-				myTransform.rotation = Quaternion.RotateTowards (transform.rotation, dir, Stats.playerTurnSpeed);
+				myTransform.rotation = Quaternion.RotateTowards (myTransform.rotation, dir, Stats.playerTurnSpeed);
 			}
 		}
 	}
@@ -89,7 +93,8 @@ public class PlayerMovementController : MonoBehaviour {
 			} else {
 				shootEnum = EnumState.none;					 //No Shooting
 			}
-		} else if (myRigidBody.velocity.magnitude < 1f) {
+		}
+		else if (myRigidBody.velocity.magnitude < 1f) {
 			if (Input.GetAxis ("Right_Trigger") < 0) {		 //Standing Rappid Fire
 				shootEnum = EnumState.standRapid;
 			} else if (Input.GetAxis ("Left_Trigger") > 0) { //Standing Single Shot
@@ -97,20 +102,19 @@ public class PlayerMovementController : MonoBehaviour {
 			} else {
 				shootEnum = EnumState.none;					 //No Shooting
 			}
-		} 
+		}
 	}
 
 	void DashRollController(){
 		/* Checks if can roll when roll button pressed.
 		 * Sends a trigger for animation, then creates a roll point */
-		if (Input.GetButtonDown ("Left_Button") && canRoll && shootEnum == EnumState.none) {
-			anim.SetTrigger ("doRoll");
-			canRoll = false;
-			rollPoint = myRigidBody.position + myRigidBody.transform.forward * Stats.rollDistance;
+		if (Input.GetButtonDown ("Left_Button") && canRoll && shootEnum == EnumState.none){
 			myRigidBody.velocity = Vector3.zero;
+			Stats.myAnim.SetTrigger ("doRoll");
+			rollPoint = myRigidBody.position + myRigidBody.transform.forward * Stats.rollDistance;
+			canRoll = false;
 		}
 		/* Lerps player to possition until the animation event changes canroll to false */
-		if (!canRoll)
-			myRigidBody.position = Vector3.Lerp (myRigidBody.position, rollPoint, Stats.rollSpeed * Time.deltaTime);
+		if (!canRoll) myRigidBody.position = Vector3.Lerp (myRigidBody.position, rollPoint, Stats.rollSpeed * Time.deltaTime);
 	}
 }

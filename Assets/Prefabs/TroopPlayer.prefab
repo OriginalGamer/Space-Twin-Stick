@@ -557,11 +557,11 @@ GameObject:
   - 136: {fileID: 13698936}
   - 114: {fileID: 11403308}
   - 114: {fileID: 11441460}
-  - 114: {fileID: 11436776}
   - 114: {fileID: 11491804}
+  - 114: {fileID: 11436776}
   m_Layer: 0
   m_Name: TroopPlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1514,7 +1514,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 178266}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: .5, z: 0}
+  m_LocalPosition: {x: 1.03999996, y: .5, z: 1.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 498956}
@@ -2054,10 +2054,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHeath: 100
-  playerSpeed: 5
+  playerSpeed: 7
   playerTurnSpeed: 15
   rollDistance: 10
   rollSpeed: 5
+  myRigidBody: {fileID: 0}
+  myTransform: {fileID: 0}
+  myAnim: {fileID: 0}
+  AnimationController: {fileID: 0}
+  MovementContoller: {fileID: 0}
+  GunController: {fileID: 0}
 --- !u!114 &11436776
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2086,11 +2092,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b08105ddbbe18e4e8f8bae2b5782b65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Stats: {fileID: 11403308}
-  AnimController: {fileID: 11484462}
-  walkingFX: {fileID: 0}
   canRoll: 1
   shootEnum: 0
+  walkingFX: {fileID: 0}
 --- !u!114 &11484462
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2102,9 +2106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7747748960016e547806ccd18dd35187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Stats: {fileID: 11403308}
-  PlayerContoller: {fileID: 11441460}
-  GunController: {fileID: 11491804}
+  walkingFX: {fileID: 0}
 --- !u!114 &11491804
 MonoBehaviour:
   m_ObjectHideFlags: 1

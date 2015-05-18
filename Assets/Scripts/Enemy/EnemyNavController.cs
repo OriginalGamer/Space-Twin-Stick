@@ -4,7 +4,7 @@ using System.Collections;
 public class EnemyNavController : MonoBehaviour {
 
 	public int health = 100;
-	bool isAlive = true;
+	public bool isAlive = true;
 
 	NavMeshAgent navAgent;
 	Transform playerTarget;

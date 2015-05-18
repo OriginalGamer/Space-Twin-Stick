@@ -8,14 +8,22 @@ public class PlayerStats : MonoBehaviour {
 	public int playerTurnSpeed;
 	public float rollDistance;
 	public float rollSpeed;
+	
+	[HideInInspector] public Rigidbody myRigidBody;
+	[HideInInspector] public Transform myTransform;
+	[HideInInspector] public Animator myAnim;
 
-	// Use this for initialization
+	[HideInInspector] public PlayerAnimationController AnimationController;
+	[HideInInspector] public PlayerMovementController MovementContoller;
+	[HideInInspector] public PlayerGunController GunController;
+
 	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+		myRigidBody = GetComponent<Rigidbody> ();
+		myTransform = GetComponent<Transform> ();
+		myAnim = GetComponentInChildren<Animator> ();
+
+		AnimationController = GetComponentInChildren<PlayerAnimationController> ();
+		MovementContoller = GetComponent<PlayerMovementController> ();
+		GunController = GetComponent<PlayerGunController> ();
 	}
 }
