@@ -28,7 +28,7 @@ public class PlayerDroneAI : MonoBehaviour {
 
 	public int lifeSpan = 5; //Seconds
 	float lifeCount = 0; //Start
-	public GameObject healthBarFill;
+	public GameObject lifeSpanFill;
 	float fillScale;
 
 	// Use this for initialization
@@ -40,7 +40,7 @@ public class PlayerDroneAI : MonoBehaviour {
 
 		targetEnum = EnumState.none;
 		navAgent.speed = moveSpeed;
-		fillScale = healthBarFill.transform.localScale.x;
+		fillScale = lifeSpanFill.transform.localScale.x;
 	}
 	
 	// Update is called once per frame
@@ -91,7 +91,7 @@ public class PlayerDroneAI : MonoBehaviour {
 			} 
 			scoutRotTimer = 0;
 		}
-		myTransform.Rotate (rotDir * 100 * Time.deltaTime);
+		myTransform.Rotate (rotDir * 125 * Time.deltaTime);
 		RaycastHit hit;
 		if (myRigidBody.SweepTest (myRigidBody.transform.forward, out hit, 20)){
 			if (hit.collider.tag == "Enemy"){
@@ -107,6 +107,6 @@ public class PlayerDroneAI : MonoBehaviour {
 		}
 		float xScale = Mathf.Clamp (fillScale / lifeSpan * (lifeSpan - lifeCount), 0, 1);
 		Vector3 scale = new Vector3 (xScale, 1, 1);
-		healthBarFill.transform.localScale = Vector3.Slerp (healthBarFill.transform.localScale, scale, 5 * Time.deltaTime);
+		lifeSpanFill.transform.localScale = Vector3.Slerp (lifeSpanFill.transform.localScale, scale, 5 * Time.deltaTime);
 	} 
 }

@@ -5,7 +5,6 @@ public class EnemyNavController : MonoBehaviour {
 	NavMeshAgent navAgent;
 	Transform playerTarget;
 	Transform myTransform;
-	Rigidbody myRigidBody;
 	Renderer myRenderer;
 	Animator anim;
 
@@ -31,7 +30,6 @@ public class EnemyNavController : MonoBehaviour {
 		anim = GetComponent<Animator> ();
 		navAgent = GetComponent<NavMeshAgent> ();
 		myTransform = GetComponent<Transform> ();
-		myRigidBody = GetComponent<Rigidbody> ();
 		myRenderer = GetComponentInChildren<Renderer> ();
 		playerTarget = GameObject.Find ("TroopPlayer").transform;
 		pStats = (PlayerStats)GameObject.Find ("TroopPlayer").GetComponent<PlayerStats> ();

@@ -82,6 +82,7 @@ ModelImporter:
     7400012: troop_standShot
     7400014: troop_standRapidFire
     7400016: troop_roll
+    7400018: RapidFireTwo
     9500000: //RootNode
     13700000: Cyborg Ninja
   materials:
@@ -281,29 +282,22 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .993769348
+      - time: .178041548
+        functionName: ShootBullet
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .498571932
+        functionName: ShootBullet
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .831343114
         functionName: EndShoot
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .0373832434
-        functionName: ShootBullet
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .230529338
-        functionName: ShootBullet
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .62616837
-        functionName: ShootBullet
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -429,7 +423,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .504672945
+      - time: .973515689
         functionName: EndRoll
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -437,6 +431,153 @@ ModelImporter:
         intParameter: 0
         messageOptions: 0
       transformMask: []
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: RapidFireTwo
+      takeName: Take 001
+      firstFrame: 152
+      lastFrame: 170
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: -Infinity
+        functionName: ShootBullet
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .0840107724
+        functionName: ShootBullet
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .25203231
+        functionName: ShootBullet
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .422763884
+        functionName: ShootBullet
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .57994616
+        functionName: ShootBullet
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .750677705
+        functionName: ShootBullet
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .913279176
+        functionName: ShootBullet
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .997289956
+        functionName: EndShoot
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Cyborg Ninja
+        weight: 1
+      - path: L-HandControl
+        weight: 1
+      - path: L-LegControl
+        weight: 1
+      - path: Main
+        weight: 1
+      - path: Main/Pelvis
+        weight: 1
+      - path: Main/Pelvis/L-thigh
+        weight: 1
+      - path: Main/Pelvis/L-thigh/L-knee
+        weight: 1
+      - path: Main/Pelvis/L-thigh/L-knee/L-foot
+        weight: 1
+      - path: Main/Pelvis/R-thigh
+        weight: 1
+      - path: Main/Pelvis/R-thigh/R-knee
+        weight: 1
+      - path: Main/Pelvis/R-thigh/R-knee/R-foot
+        weight: 1
+      - path: Main/Pelvis/Spine
+        weight: 1
+      - path: Main/Pelvis/Spine/Shoulder
+        weight: 1
+      - path: Main/Pelvis/Spine/Shoulder/Head
+        weight: 1
+      - path: Main/Pelvis/Spine/Shoulder/L-upperarm
+        weight: 1
+      - path: Main/Pelvis/Spine/Shoulder/L-upperarm/L-lowerarm
+        weight: 1
+      - path: Main/Pelvis/Spine/Shoulder/L-upperarm/L-lowerarm/L-hand
+        weight: 1
+      - path: Main/Pelvis/Spine/Shoulder/L-upperarm/L-lowerarm/L-hand/L-finger01
+        weight: 1
+      - path: Main/Pelvis/Spine/Shoulder/L-upperarm/L-lowerarm/L-hand/L-finger01/L-finger02
+        weight: 1
+      - path: Main/Pelvis/Spine/Shoulder/L-upperarm/L-lowerarm/L-hand/L-thumb01
+        weight: 1
+      - path: Main/Pelvis/Spine/Shoulder/L-upperarm/L-lowerarm/L-hand/L-thumb01/L-thumb02
+        weight: 1
+      - path: Main/Pelvis/Spine/Shoulder/R-upperarm
+        weight: 1
+      - path: Main/Pelvis/Spine/Shoulder/R-upperarm/R-lowerarm
+        weight: 1
+      - path: Main/Pelvis/Spine/Shoulder/R-upperarm/R-lowerarm/R-hand
+        weight: 1
+      - path: Main/Pelvis/Spine/Shoulder/R-upperarm/R-lowerarm/R-hand/Cyborg Ninja
+          Gun
+        weight: 1
+      - path: Main/Pelvis/Spine/Shoulder/R-upperarm/R-lowerarm/R-hand/R-finger01
+        weight: 1
+      - path: Main/Pelvis/Spine/Shoulder/R-upperarm/R-lowerarm/R-hand/R-finger01/R-finger02
+        weight: 1
+      - path: Main/Pelvis/Spine/Shoulder/R-upperarm/R-lowerarm/R-hand/R-thumb01
+        weight: 1
+      - path: Main/Pelvis/Spine/Shoulder/R-upperarm/R-lowerarm/R-hand/R-thumb01/R-thumb02
+        weight: 1
+      - path: R-HandControl
+        weight: 1
+      - path: R-LegControl
+        weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
     isReadable: 1

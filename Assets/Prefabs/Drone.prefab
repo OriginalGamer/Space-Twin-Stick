@@ -265,7 +265,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 186200}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.38000011, y: 2.18000007, z: 15.75}
+  m_LocalPosition: {x: -36.8800011, y: 1.17999995, z: -32.75}
   m_LocalScale: {x: .278863639, y: .278863639, z: .278863639}
   m_Children:
   - {fileID: 466142}
@@ -494,7 +494,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!95 &9594116
 Animator:
@@ -562,7 +562,7 @@ MonoBehaviour:
   shootTip: {fileID: 421930}
   targetEnum: 0
   lifeSpan: 15
-  healthBarFill: {fileID: 121564}
+  lifeSpanFill: {fileID: 121564}
 --- !u!114 &11452916
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -581,7 +581,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 186200}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: .5
   m_Height: 6.48000002

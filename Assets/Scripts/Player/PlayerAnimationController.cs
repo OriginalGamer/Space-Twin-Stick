@@ -51,17 +51,9 @@ public class PlayerAnimationController : MonoBehaviour {
 				animatingShot = true;
 				Stats.myAnim.SetTrigger ("standShoot");
 			}
-			if (shootStance == "standRapid") {
-				animatingShot = true;
-				Stats.myAnim.SetTrigger ("standRapid");
-			}
 			if (shootStance == "runShoot") {
 				animatingShot = true;
 				Stats.myAnim.SetTrigger ("runShoot");
-			}
-			if (shootStance == "runRapid") {
-				animatingShot = true;
-				Stats.myAnim.SetTrigger ("runRapid");
 			}
 			if (shootStance == "none") {
 				animatingShot = false;

@@ -91,6 +91,7 @@ public class PlayerCompanionAI : MonoBehaviour {
 			} else {
 				navAgent.speed = moveSpeed * 2;
 				myRigidBody.transform.LookAt (activeTarget.transform);
+				navAgent.Resume ();
 				navAgent.SetDestination (activeTarget.transform.position);
 				float distFromTarget = Vector3.Distance (myTransform.position, activeTarget.transform.position);
 				if (distFromTarget < 1.5f){

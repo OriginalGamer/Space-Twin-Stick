@@ -14,10 +14,8 @@ public class PlayerMovementController : MonoBehaviour {
 	// Stances for which way a gun is being shot
 	public enum EnumState{ 
 		none, 			//No Button Pressed
-		standShoot, 	//L Trigger, No Movement
-		standRapid, 	//R Tigger, No Movement
-		runShoot, 		//L Trigger, Movement
-		runRapid		//R Trigger, Movement
+		standShoot, 	//R Tigger, No Movement
+		runShoot		//R Trigger, Movement
 	} [HideInInspector] public EnumState shootEnum;
 
 	public AudioSource walkingFX; //Audio Played When Walking
@@ -87,14 +85,14 @@ public class PlayerMovementController : MonoBehaviour {
 	void ShootController(){
 		if (myRigidBody.velocity.magnitude > 1f) {
 			if (Input.GetAxis ("Right_Trigger") < 0) {       //Running Rappid Fire
-				shootEnum = EnumState.runRapid;
+				shootEnum = EnumState.runShoot;
 			} else {
 				shootEnum = EnumState.none;					 //No Shooting
 			}
 		}
 		else if (myRigidBody.velocity.magnitude < 1f) {
 			if (Input.GetAxis ("Right_Trigger") < 0) {		 //Standing Rappid Fire
-				shootEnum = EnumState.standRapid;
+				shootEnum = EnumState.standShoot;
 			}  else {
 				shootEnum = EnumState.none;					 //No Shooting
 			}
@@ -102,9 +100,6 @@ public class PlayerMovementController : MonoBehaviour {
 	}
 
 	void AimAssist(){
-		if (Input.GetButton ("Left_Button")) {
-			//Stats.playerEnergy -= 25 * Time.deltaTime;
-		}
 		if (Input.GetButton ("Left_Button")) {
 			if (Stats.playerEnergy > 1) {
 				Stats.playerEnergy -= 10 * Time.deltaTime;

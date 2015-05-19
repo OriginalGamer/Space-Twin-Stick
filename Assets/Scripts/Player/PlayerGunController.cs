@@ -5,6 +5,7 @@ public class PlayerGunController : MonoBehaviour {
 
 	public Transform shootTip;
 	public GameObject basicBullet;
+	public GameObject flash;
 
 	enum EnumState{
 		normal,
@@ -18,6 +19,8 @@ public class PlayerGunController : MonoBehaviour {
 	public void ShotFired(){
 		if (gunMode == EnumState.normal) {
 			Instantiate (basicBullet, shootTip.transform.position, transform.rotation);
+			flash.SetActive (false);
+			flash.SetActive (true);
 		}
 	}
 }

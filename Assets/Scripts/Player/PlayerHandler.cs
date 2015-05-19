@@ -24,7 +24,7 @@ public class PlayerHandler : MonoBehaviour {
 		MonitorHealthUI ();
 		MonitorEnergyUI ();
 		if (Input.GetButtonDown ("Button_X")){
-			Vector3 spawnPos = new Vector3(Stats.myTransform.position.x,Stats.myTransform.position.y + 5 ,Stats.myTransform.position.z);
+			Vector3 spawnPos = new Vector3(Stats.myTransform.position.x,Stats.myTransform.position.y + 5,Stats.myTransform.position.z);
 			Instantiate (tempComp, spawnPos, Quaternion.identity);
 		}
 
@@ -47,7 +47,9 @@ public class PlayerHandler : MonoBehaviour {
 	}
 
 	void TakeHit(int damage){
-		if (Stats.playerHeath <= 0) {
+		Stats.MovementContoller.canRoll = true;
+		if (Stats.playerHeath <= damage) {
+			Stats.playerHeath -= damage;
 			Stats.myAnim.SetTrigger ("death");
 			Stats.isAlive = false;
 		} else {

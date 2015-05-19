@@ -16,13 +16,13 @@ public class PlayerBullet : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
-		myRigidBody.transform.Translate (Vector3.forward * 30 * Time.deltaTime);
+		myRigidBody.transform.Translate (Vector3.forward * shootSpeed * Time.deltaTime);
 	}
 
 	void OnTriggerEnter(Collider col){
 		if (col.tag == "Enemy") {
 			col.SendMessage ("GetHit", bulletDamage);
-			Destroy (gameObject);
 		}
+		if (col.tag != "Player" && col.tag != "Companion") Destroy (gameObject);
 	}
 }
