@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerStats : MonoBehaviour {
 
 	public int playerHeath;
+	public float playerEnergy;
 	public int playerSpeed;
 	public int playerTurnSpeed;
 	public float rollDistance;
@@ -26,5 +27,10 @@ public class PlayerStats : MonoBehaviour {
 		AnimationController = GetComponentInChildren<PlayerAnimationController> ();
 		MovementContoller = GetComponent<PlayerMovementController> ();
 		GunController = GetComponent<PlayerGunController> ();
+	}
+
+	void Update(){
+		playerEnergy += Time.deltaTime;
+		playerEnergy = Mathf.Clamp (playerEnergy, 0, 100);
 	}
 }

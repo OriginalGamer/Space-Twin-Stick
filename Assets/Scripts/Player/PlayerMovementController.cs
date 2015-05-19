@@ -21,6 +21,9 @@ public class PlayerMovementController : MonoBehaviour {
 	} [HideInInspector] public EnumState shootEnum;
 
 	public AudioSource walkingFX; //Audio Played When Walking
+	public GameObject laserLight; //Laser from Gun
+	bool hasLockOn = false;
+	Transform lockOnTarget;
 
 	// Use this for initialization
 	void Start () {
@@ -36,12 +39,15 @@ public class PlayerMovementController : MonoBehaviour {
 	void Update () {
 		GetAxis ();
 		if (Stats.isAlive) DashRollController ();
-		if (canRoll && Stats.isAlive) ShootController ();
+		if (canRoll && Stats.isAlive) {
+			ShootController ();
+			AimAssist ();
+		}
 	}
 
 	void FixedUpdate(){
-		if (canRoll && Stats.isAlive) MovementController ();
-		if (Stats.isAlive) RotationController ();
+		if (canRoll && Stats.isAlive)MovementController ();
+		if (Stats.isAlive && !hasLockOn) RotationController ();
 	}
 
 	// Gets the input for both joystick axis
@@ -58,12 +64,6 @@ public class PlayerMovementController : MonoBehaviour {
 			myRigidBody.AddForce (leftAxis.normalized * 50, ForceMode.Force);
 			myRigidBody.velocity = Vector3.ClampMagnitude (myRigidBody.velocity, Stats.playerSpeed);
 		}
-		/*
-		// Checks if there is movement and plays audio footsteps.
-		if (myRigidBody.velocity.magnitude > 1f && !walkingFX.isPlaying){
-			walkingFX.Play ();
-		}
-		*/
 	}
 
 	void RotationController(){
@@ -88,8 +88,6 @@ public class PlayerMovementController : MonoBehaviour {
 		if (myRigidBody.velocity.magnitude > 1f) {
 			if (Input.GetAxis ("Right_Trigger") < 0) {       //Running Rappid Fire
 				shootEnum = EnumState.runRapid;
-			} else if (Input.GetAxis ("Left_Trigger") > 0) { //Running Single Shot
-				shootEnum = EnumState.runShoot;
 			} else {
 				shootEnum = EnumState.none;					 //No Shooting
 			}
@@ -97,10 +95,42 @@ public class PlayerMovementController : MonoBehaviour {
 		else if (myRigidBody.velocity.magnitude < 1f) {
 			if (Input.GetAxis ("Right_Trigger") < 0) {		 //Standing Rappid Fire
 				shootEnum = EnumState.standRapid;
-			} else if (Input.GetAxis ("Left_Trigger") > 0) { //Standing Single Shot
-				shootEnum = EnumState.standShoot;
-			} else {
+			}  else {
 				shootEnum = EnumState.none;					 //No Shooting
+			}
+		}
+	}
+
+	void AimAssist(){
+		if (Input.GetButton ("Left_Button")) {
+			//Stats.playerEnergy -= 25 * Time.deltaTime;
+		}
+		if (Input.GetButton ("Left_Button")) {
+			if (Stats.playerEnergy > 1) {
+				Stats.playerEnergy -= 10 * Time.deltaTime;
+				laserLight.SetActive (true);
+				if (Input.GetAxis ("Right_Trigger") < 0) {
+					RaycastHit hit;
+					if (Physics.Raycast (laserLight.transform.position, myTransform.forward, out hit)){
+						if (hit.collider.tag == "Enemy"){
+							hasLockOn = true;
+							lockOnTarget = hit.transform;
+						} 
+					}
+				}
+			} else {
+				laserLight.SetActive (false);
+				hasLockOn = false;
+			}
+		} else{
+			laserLight.SetActive (false);
+			hasLockOn = false;
+		}
+		if (hasLockOn){
+			if(lockOnTarget.GetComponent<EnemyNavController>().isAlive ){
+				myTransform.LookAt (lockOnTarget.transform.position);
+			} else{
+				hasLockOn = false;
 			}
 		}
 	}
@@ -108,7 +138,7 @@ public class PlayerMovementController : MonoBehaviour {
 	void DashRollController(){
 		/* Checks if can roll when roll button pressed.
 		 * Sends a trigger for animation, then creates a roll point */
-		if (Input.GetButtonDown ("Left_Button") && canRoll && shootEnum == EnumState.none){
+		if (Input.GetButtonDown ("Right_Button") && canRoll && shootEnum == EnumState.none){
 			myRigidBody.velocity = Vector3.zero;
 			Stats.myAnim.SetTrigger ("doRoll");
 			rollPoint = myRigidBody.position + myRigidBody.transform.forward * Stats.rollDistance;

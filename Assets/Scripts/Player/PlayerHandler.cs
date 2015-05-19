@@ -11,6 +11,8 @@ public class PlayerHandler : MonoBehaviour {
     public GameObject healthBarFill;
     float fillScale;
 
+	public GameObject energyBarFill;
+
 	// Use this for initialization
 	void Start () {
 	    Stats = GetComponent<PlayerStats>();
@@ -20,10 +22,7 @@ public class PlayerHandler : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		MonitorHealthUI ();
-		if (Input.GetKeyDown (KeyCode.Space)){
-			Stats.playerHeath -= 10;
-		}
-
+		MonitorEnergyUI ();
 		if (Input.GetButtonDown ("Button_X")){
 			Vector3 spawnPos = new Vector3(Stats.myTransform.position.x,Stats.myTransform.position.y + 5 ,Stats.myTransform.position.z);
 			Instantiate (tempComp, spawnPos, Quaternion.identity);
@@ -40,6 +39,12 @@ public class PlayerHandler : MonoBehaviour {
 		Vector3 scale = new Vector3 (xScale, 1, 1);
 		healthBarFill.transform.localScale = Vector3.Slerp (healthBarFill.transform.localScale, scale, 5 * Time.deltaTime);
     }
+
+	void MonitorEnergyUI(){
+		float xScale = Mathf.Clamp (fillScale / 100 * Stats.playerEnergy, 0, 1);
+		Vector3 scale = new Vector3 (xScale, 1, 1);
+		energyBarFill.transform.localScale = Vector3.Slerp (energyBarFill.transform.localScale, scale, 5 * Time.deltaTime);
+	}
 
 	void TakeHit(int damage){
 		if (Stats.playerHeath <= 0) {
