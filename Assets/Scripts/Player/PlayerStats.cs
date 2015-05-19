@@ -8,6 +8,7 @@ public class PlayerStats : MonoBehaviour {
 	public int playerTurnSpeed;
 	public float rollDistance;
 	public float rollSpeed;
+	public bool isAlive = true;
 	
 	[HideInInspector] public Rigidbody myRigidBody;
 	[HideInInspector] public Transform myTransform;

@@ -24,7 +24,18 @@ public class PlayerHandler : MonoBehaviour {
 	}
 
     void MonitorHealthUI() {
-		Vector3 scale = new Vector3 (fillScale / 100 * Stats.playerHeath, 1, 1);
+		float xScale = Mathf.Clamp (fillScale / 100 * Stats.playerHeath, 0, 1);
+		Vector3 scale = new Vector3 (xScale, 1, 1);
 		healthBarFill.transform.localScale = Vector3.Slerp (healthBarFill.transform.localScale, scale, 5 * Time.deltaTime);
     }
+
+	void TakeHit(int damage){
+		if (Stats.playerHeath <= 0) {
+			Stats.myAnim.SetTrigger ("death");
+			Stats.isAlive = false;
+		} else {
+			Stats.playerHeath -= damage;
+			Stats.myAnim.SetTrigger ("getHit");
+		}
+	}
 }
