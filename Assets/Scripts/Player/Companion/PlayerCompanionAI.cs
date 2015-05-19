@@ -4,6 +4,12 @@ using System.Collections;
 public class PlayerCompanionAI : MonoBehaviour {
 
 	public int moveSpeed;
+
+	public int lifeSpan = 5; //Seconds
+	float lifeCount = 0; //Start
+	public GameObject healthBarFill;
+	float fillScale;
+
 	public GameObject swordFX;
 
 	NavMeshAgent navAgent;
@@ -30,7 +36,9 @@ public class PlayerCompanionAI : MonoBehaviour {
 		myRigidBody = GetComponent<Rigidbody>();
 		anim = GetComponent<Animator> ();
 		playerTarget = GameObject.Find ("TroopPlayer").transform;
+
 		navAgent.speed = moveSpeed;
+		fillScale = healthBarFill.transform.localScale.x;
 	}
 	
 	// Update is called once per frame
@@ -38,7 +46,18 @@ public class PlayerCompanionAI : MonoBehaviour {
 		SetTargetEnum ();
 		AnimationController ();
 		CheckAlive ();
+		LifespanCheck ();
 	}
+
+	void LifespanCheck(){
+		lifeCount += Time.deltaTime;
+		if (lifeCount >= lifeSpan) {
+			Destroy (gameObject);
+		}
+		float xScale = Mathf.Clamp (fillScale / lifeSpan * (lifeSpan - lifeCount), 0, 1);
+		Vector3 scale = new Vector3 (xScale, 1, 1);
+		healthBarFill.transform.localScale = Vector3.Slerp (healthBarFill.transform.localScale, scale, 5 * Time.deltaTime);
+	} 
 
 	void AnimationController(){
 		if (targetEnum == EnumState.findTarget && activeTarget != null) {

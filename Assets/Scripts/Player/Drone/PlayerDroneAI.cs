@@ -26,6 +26,11 @@ public class PlayerDroneAI : MonoBehaviour {
 	float scoutRotTimer = 5;
 	Vector3 rotDir = Vector3.up;
 
+	public int lifeSpan = 5; //Seconds
+	float lifeCount = 0; //Start
+	public GameObject healthBarFill;
+	float fillScale;
+
 	// Use this for initialization
 	void Start () {
 		playerTarget = GameObject.Find ("TroopPlayer").transform;
@@ -35,11 +40,13 @@ public class PlayerDroneAI : MonoBehaviour {
 
 		targetEnum = EnumState.none;
 		navAgent.speed = moveSpeed;
+		fillScale = healthBarFill.transform.localScale.x;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		SetTarget ();
+		LifespanCheck ();
 	}
 
 	void SetTarget(){
@@ -92,4 +99,14 @@ public class PlayerDroneAI : MonoBehaviour {
 			}
 		} 
 	}
+
+	void LifespanCheck(){
+		lifeCount += Time.deltaTime;
+		if (lifeCount >= lifeSpan) {
+			Destroy (gameObject);
+		}
+		float xScale = Mathf.Clamp (fillScale / lifeSpan * (lifeSpan - lifeCount), 0, 1);
+		Vector3 scale = new Vector3 (xScale, 1, 1);
+		healthBarFill.transform.localScale = Vector3.Slerp (healthBarFill.transform.localScale, scale, 5 * Time.deltaTime);
+	} 
 }

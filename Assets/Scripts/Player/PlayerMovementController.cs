@@ -35,13 +35,13 @@ public class PlayerMovementController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		GetAxis ();
-		DashRollController ();
-		if (canRoll) ShootController ();
+		if (Stats.isAlive) DashRollController ();
+		if (canRoll && Stats.isAlive) ShootController ();
 	}
 
 	void FixedUpdate(){
-		if (canRoll) MovementController ();
-		RotationController ();
+		if (canRoll && Stats.isAlive) MovementController ();
+		if (Stats.isAlive) RotationController ();
 	}
 
 	// Gets the input for both joystick axis

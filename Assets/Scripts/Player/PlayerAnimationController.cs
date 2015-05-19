@@ -6,7 +6,7 @@ public class PlayerAnimationController : MonoBehaviour {
 	PlayerStats Stats;
 
 	string shootStance;
-	bool animatingShot = false;
+	[HideInInspector] public bool animatingShot = false;
 
 	[HideInInspector] public AudioSource walkingFX; //Audio Played When Walking
 
@@ -51,21 +51,25 @@ public class PlayerAnimationController : MonoBehaviour {
 				animatingShot = true;
 				Stats.myAnim.SetTrigger ("standShoot");
 			}
-			if (shootStance == "standRapid"){
+			if (shootStance == "standRapid") {
 				animatingShot = true;
 				Stats.myAnim.SetTrigger ("standRapid");
 			}
-			if (shootStance == "runShoot"){
+			if (shootStance == "runShoot") {
 				animatingShot = true;
 				Stats.myAnim.SetTrigger ("runShoot");
 			}
-			if (shootStance == "runRapid"){
+			if (shootStance == "runRapid") {
 				animatingShot = true;
 				Stats.myAnim.SetTrigger ("runRapid");
 			}
-			if (shootStance == "none"){
+			if (shootStance == "none") {
 				animatingShot = false;
 				Stats.myAnim.SetTrigger ("isNoneShoot");
+			}
+		} else {
+			if (shootStance == "none") {
+				animatingShot = false;
 			}
 		}
 	}

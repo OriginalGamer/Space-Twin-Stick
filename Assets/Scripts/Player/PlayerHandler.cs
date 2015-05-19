@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class PlayerHandler : MonoBehaviour {
 
+	public GameObject tempComp, tempDrone;
+
     PlayerStats Stats;
 
     public GameObject healthBarFill;
@@ -21,6 +23,16 @@ public class PlayerHandler : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Space)){
 			Stats.playerHeath -= 10;
 		}
+
+		if (Input.GetButtonDown ("Button_X")){
+			Vector3 spawnPos = new Vector3(Stats.myTransform.position.x,Stats.myTransform.position.y + 5 ,Stats.myTransform.position.z);
+			Instantiate (tempComp, spawnPos, Quaternion.identity);
+		}
+
+		if (Input.GetButtonDown ("Button_B")){
+			Vector3 spawnPos = new Vector3(Stats.myTransform.position.x,Stats.myTransform.position.y + 5 ,Stats.myTransform.position.z);
+			Instantiate (tempDrone, spawnPos, Quaternion.identity);
+		}
 	}
 
     void MonitorHealthUI() {
@@ -36,6 +48,6 @@ public class PlayerHandler : MonoBehaviour {
 		} else {
 			Stats.playerHeath -= damage;
 			Stats.myAnim.SetTrigger ("getHit");
-		}
+		} 
 	}
 }

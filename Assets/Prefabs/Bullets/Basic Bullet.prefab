@@ -140,6 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletFX: {fileID: 146930, guid: c45d4f25ee898284dbf144e246edfccc, type: 2}
   shootSpeed: 10
+  bulletDamage: 15
 --- !u!135 &13593586
 SphereCollider:
   m_ObjectHideFlags: 1
